@@ -1,3 +1,5 @@
+import { login } from "../js/auth.js";
+
 const form = document.getElementById("loginForm");
 const feedback = document.getElementById("feedback");
 const resetSenha = document.getElementById("resetSenha");
@@ -16,23 +18,26 @@ form.addEventListener("submit", function (event) {
     }
 
     // Valida o usuário através da função login
-    const usuario = login(email, senha);
+    login(email, senha)
+        .then(function (usuario) {
 
-    // Login inválido
-    if (!usuario) {
-        feedback.textContent = "Email ou senha inválidos.";
-        feedback.style.color = "#dc2626";
-        return;
-    }
+            // Salva o usuário na sessão
+            sessionStorage.setItem(
+                "usuarioLogado",
+                JSON.stringify(usuario)
+            );
 
-    // Salva o usuário na sessão
-    sessionStorage.setItem(
-        "usuarioLogado",
-        JSON.stringify(usuario)
-    );
+            // Redireciona para o Dashboard
+            window.location.href = "../dashboard/dashboard.html";
 
-    // Redireciona para o Dashboard
-    window.location.href = "../dashboard/dashboard.html";
+        })
+        .catch(function (erro) {
+
+            // Login inválido
+            feedback.textContent = erro;
+            feedback.style.color = "#dc2626";
+
+        });
 });
 
 // Recuperação de senha

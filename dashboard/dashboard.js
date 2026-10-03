@@ -1,3 +1,5 @@
+import { listarCursos } from "../js/cursos.js";
+
 const dadosUsuario = sessionStorage.getItem("usuarioLogado");
 
 if (!dadosUsuario) {
@@ -45,5 +47,36 @@ if (!dadosUsuario) {
         window.location.href = "../login/login.html";
 
     });
+
+
+    /* RF04 - Lista os cursos do usuário */
+
+    const listaCursos = document.getElementById("listaCursos");
+
+    listarCursos(usuario)
+        .then(function (cursos) {
+
+            cursos.forEach(function (curso) {
+
+                const card = document.createElement("div");
+
+                card.classList.add("card-curso");
+
+                card.innerHTML = `
+                    <h3>${curso.nomeCurso}</h3>
+                    <p><strong>Data de início:</strong> ${curso.dataInicio}</p>
+                    <p><strong>Data de término:</strong> ${curso.dataFim}</p>
+                `;
+
+                listaCursos.appendChild(card);
+
+            });
+
+        })
+        .catch(function (erro) {
+
+            listaCursos.textContent = erro;
+
+        });
 
 }

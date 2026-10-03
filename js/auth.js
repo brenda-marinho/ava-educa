@@ -1,11 +1,24 @@
+import { usuarios } from "../dados/listagem-usuarios.js";
+
 function login(usuario, senha) {
 
-    if (usuario === "teste@email.com" && senha === "123456") {
-        return {
-            email: usuario,
-            nome: "Aluno"
-        };
-    }
+    const usuarioEncontrado = usuarios.find(
+        item => item.email === usuario && item.senha === senha
+    );
 
-    return null;
+    return new Promise((resolve, reject) => {
+
+        if (usuarioEncontrado) {
+
+            resolve(usuarioEncontrado);
+
+        } else {
+
+            reject("Dados incorretos. Favor verificar e tentar novamente");
+
+        }
+
+    });
 }
+
+export { login };
