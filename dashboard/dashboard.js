@@ -1,11 +1,49 @@
 const dadosUsuario = sessionStorage.getItem("usuarioLogado");
 
 if (!dadosUsuario) {
+
     window.location.href = "../login/login.html";
+
 } else {
+
     const usuario = JSON.parse(dadosUsuario);
 
+    // RF02 - Exibe o nome do usuário no cabeçalho
+    const usuarioLogado = document.getElementById("usuarioLogado");
+
+    usuarioLogado.textContent = usuario.nome;
+
+    // Mensagem de boas-vindas
     const boasVindas = document.getElementById("boasVindas");
 
     boasVindas.textContent = `Bem-vindo, ${usuario.nome}!`;
+
+
+    /* RF03 - Navegação do menu */
+
+    // Dashboard
+    document.getElementById("btnDashboard").addEventListener("click", function () {
+
+        window.location.href = "dashboard.html";
+
+    });
+
+
+    // Cadastro de alunos
+    document.getElementById("btnCadastro").addEventListener("click", function () {
+
+        window.location.href = "../cadastro-aluno/cadastro-aluno.html";
+
+    });
+
+
+    // Sair
+    document.getElementById("btnSair").addEventListener("click", function () {
+
+        sessionStorage.removeItem("usuarioLogado");
+
+        window.location.href = "../login/login.html";
+
+    });
+
 }
