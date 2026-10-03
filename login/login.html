@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - AVA Educa</title>
+
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+    <main>
+        <h1>AVA Educa</h1>
+        <h2>Login</h2>
+
+        <form id="loginForm">
+
+            <label for="email">Email</label>
+            <input 
+                type="email" 
+                id="email" 
+                placeholder="Digite seu email"
+            >
+
+            <label for="senha">Senha</label>
+            <input 
+                type="password" 
+                id="senha" 
+                placeholder="Digite sua senha"
+            >
+
+            <button type="submit">Entrar</button>
+
+            <a href="#" id="resetSenha">
+                Esqueceu sua senha?
+            </a>
+
+            <p id="feedback"></p>
+
+        </form>
+    </main>
+
+    <script src="../js/auth.js"></script>
+    <script src="login.js"></script>
+
+</body>
+</html>
