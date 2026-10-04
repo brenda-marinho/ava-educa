@@ -1,4 +1,5 @@
 import { Aluno } from "../js/aluno.js";
+import { cadastrarAluno } from "../js/alunos.js";
 
 const dadosUsuario = sessionStorage.getItem("usuarioLogado");
 
@@ -67,47 +68,54 @@ dataNascimentoCampo.addEventListener("input", function () {
 
     // RF05 - Busca endereço através do CEP
 
-    cep.addEventListener("blur", function () {
+    // RF05 - Busca endereço através do CEP
 
-        const cepValue = cep.value.replace(/\D/g, "");
+cep.addEventListener("blur", function () {
 
-        if (cepValue.length !== 8) {
-            return;
-        }
+    const cepValue = cep.value.replace(/\D/g, "");
 
-        fetch(`https://viacep.com.br/ws/${cepValue}/json/`)
-            .then(function (response) {
+    if (cepValue.length !== 8) {
+        return;
+    }
 
-                return response.json();
+    fetch(`https://viacep.com.br/ws/${cepValue}/json/`)
+        .then(function (response) {
 
-            })
-            .then(function (dados) {
+            if (!response.ok) {
+                throw new Error("Erro na consulta do CEP");
+            }
 
-                if (dados.erro) {
+            return response.json();
 
-                    feedback.textContent = "CEP não encontrado.";
-                    feedback.style.color = "#dc2626";
+        })
+        .then(function (dados) {
 
-                    return;
-                }
+            if (dados.erro) {
 
-                document.getElementById("cidade").value = dados.localidade;
-                document.getElementById("estado").value = dados.uf;
-                document.getElementById("logradouro").value = dados.logradouro;
-                document.getElementById("bairro").value = dados.bairro;
-
-                feedback.textContent = "";
-
-            })
-            .catch(function () {
-
-                feedback.textContent = "Erro ao consultar o CEP.";
+                feedback.textContent = "CEP não encontrado.";
                 feedback.style.color = "#dc2626";
 
-            });
+                return;
+            }
 
-    });
+            document.getElementById("cidade").value = dados.localidade || "";
+            document.getElementById("estado").value = dados.uf || "";
+            document.getElementById("logradouro").value = dados.logradouro || "";
+            document.getElementById("bairro").value = dados.bairro || "";
 
+            feedback.textContent = "";
+
+        })
+        .catch(function (erro) {
+
+            console.error(erro);
+
+            feedback.textContent = "Erro ao consultar o CEP.";
+            feedback.style.color = "#dc2626";
+
+        });
+
+});
 
     // RF05 - Cadastro
 
@@ -259,13 +267,23 @@ dataNascimentoCampo.addEventListener("input", function () {
         );
 
 
-        console.log("Aluno criado:", aluno);
+        cadastrarAluno(aluno)
+    .then(function (mensagem) {
 
-        feedback.textContent =
-            "Aluno validado com sucesso!";
+        console.log("Aluno cadastrado:", aluno);
 
-                feedback.style.color = "#16a34a";
+        feedback.textContent = mensagem;
+        feedback.style.color = "#16a34a";
 
+        form.reset();
+
+    })
+    .catch(function (erro) {
+
+        feedback.textContent = erro;
+        feedback.style.color = "#dc2626";
+
+    });
     });
 
 }
