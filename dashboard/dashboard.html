@@ -1,17 +1,69 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Dashboard - AVA Educa</title>
+
+    <link rel="stylesheet" href="dashboard.css">
 </head>
+
 <body>
 
-    <h1>Dashboard</h1>
+    <!-- RF02 - Cabeçalho -->
+    <header>
+        <div class="logo">
+            AVA-EDUCA+
+        </div>
 
-    <p id="boasVindas"></p>
+        <div class="usuario-logado" id="usuarioLogado"></div>
+    </header>
 
-    <script src="dashboard.js"></script>
+    <div class="layout">
 
+        <!-- RF03 - Menu lateral -->
+        <aside>
+            <nav class="menu">
+
+                <button id="btnDashboard">
+                    Dashboard
+                </button>
+
+                <button id="btnCursos" disabled>
+                    Cursos
+                </button>
+
+                <button id="btnCadastro">
+                    Cadastro de Alunos
+                </button>
+
+                <button id="btnSair">
+                    Sair
+                </button>
+
+            </nav>
+        </aside>
+
+        <!-- Conteúdo do Dashboard -->
+        <main>
+
+            <h1>Dashboard</h1>
+
+            <p id="boasVindas"></p>
+
+             <section class="cursos">
+        <h2>Meus cursos</h2>
+
+        <div id="listaCursos" class="lista-cursos"></div>
+    </section>
+
+        </main>
+
+    </div>
+
+    <script type="module" src="dashboard.js"></script>
 </body>
+
 </html>
