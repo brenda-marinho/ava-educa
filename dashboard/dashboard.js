@@ -64,8 +64,8 @@ if (!dadosUsuario) {
 
                 card.innerHTML = `
                     <h3>${curso.nomeCurso}</h3>
-                    <p><strong>Data de início:</strong> ${curso.dataInicio}</p>
-                    <p><strong>Data de término:</strong> ${curso.dataFim}</p>
+                    <p><strong>Data de início:</strong> ${curso.dataInicio.split("-").reverse().join("/")}</p>
+<p><strong>Data de término:</strong> ${curso.dataFim.split("-").reverse().join("/")}</p>
                 `;
 
                 listaCursos.appendChild(card);
